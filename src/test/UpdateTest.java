@@ -5,15 +5,16 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DeleteTest {
+public class UpdateTest {
+	
 	public static void main(String[] args) {
-		boolean result = delete( 8L );
+		boolean result = update( 1L, "경영지원팀" );
 		if( result ) {
-			System.out.println( "삭제 성공!" );
+			System.out.println( "업데이트 성공!" );
 		}
 	}
 	
-	public static boolean delete(Long no) {
+	public static boolean update(Long no, String name) {
 		boolean result = false;
 		
 		Connection conn = null;
@@ -31,7 +32,9 @@ public class DeleteTest {
 			
 			//4. SQL문 실행
 			String sql = 
-				"delete from department where no=" + no;
+				" update department" +
+				"    set name='" + name + "'" +
+				"  where no=" + no;
 			int count = stmt.executeUpdate(sql);
 			result = count == 1;
 			

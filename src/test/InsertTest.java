@@ -42,6 +42,9 @@ public class InsertTest {
 			System.out.println("error" + e);
 		} finally {
 			try {
+				if( stmt != null ) {
+					stmt.close();
+				}
 				if( conn != null ) {
 					conn.close();
 				}
