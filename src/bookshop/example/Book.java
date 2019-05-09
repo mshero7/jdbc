@@ -1,4 +1,4 @@
-package bookshop;
+package bookshop.example;
 
 public class Book {
 	private int bookNo;

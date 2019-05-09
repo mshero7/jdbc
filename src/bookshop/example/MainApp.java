@@ -1,4 +1,4 @@
-package bookshop;
+package bookshop.example;
 
 import java.util.Scanner;
 
