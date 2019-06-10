@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConnectionTest {
+public class MariaDBConnectionTest {
 
 	public static void main(String[] args) {
 		Connection conn = null;
@@ -13,7 +13,7 @@ public class ConnectionTest {
 			Class.forName("org.mariadb.jdbc.Driver");
 			
 			//2. 연결하기
-			String url = "jdbc:mariadb://192.168.1.250:3307/webdb";
+			String url = "jdbc:mariadb://192.168.1.199:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 			
 			System.out.println( "연결성공" );
