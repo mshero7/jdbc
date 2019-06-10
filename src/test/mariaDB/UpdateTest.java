@@ -1,20 +1,20 @@
-package test;
+package test.mariaDB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class InsertTest {
-
+public class UpdateTest {
+	
 	public static void main(String[] args) {
-		boolean result  = insert( "디자인팀" );
+		boolean result = update( 1L, "경영지원팀" );
 		if( result ) {
-			System.out.println( "입력 성공!" );
+			System.out.println( "업데이트 성공!" );
 		}
 	}
 	
-	public static boolean insert(String name) {
+	public static boolean update(Long no, String name) {
 		boolean result = false;
 		
 		Connection conn = null;
@@ -32,7 +32,9 @@ public class InsertTest {
 			
 			//4. SQL문 실행
 			String sql = 
-				"insert into department values(null, '" + name + "')";
+				" update department" +
+				"    set name='" + name + "'" +
+				"  where no=" + no;
 			int count = stmt.executeUpdate(sql);
 			result = count == 1;
 			
@@ -49,7 +51,6 @@ public class InsertTest {
 					conn.close();
 				}
  			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

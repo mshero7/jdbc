@@ -1,16 +1,23 @@
-package test;
+package test.mariaDB;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class SelectTest {
+public class DeleteTest {
 	public static void main(String[] args) {
+		boolean result = delete( 8L );
+		if( result ) {
+			System.out.println( "삭제 성공!" );
+		}
+	}
+	
+	public static boolean delete(Long no) {
+		boolean result = false;
+		
 		Connection conn = null;
 		Statement stmt = null;
-		ResultSet rs = null;
 		try {
 			//1. JDBC Driver(MariaDB) 로딩
 			Class.forName("org.mariadb.jdbc.Driver");
@@ -18,20 +25,15 @@ public class SelectTest {
 			//2. 연결하기
 			String url = "jdbc:mariadb://192.168.1.250:3307/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
-			
+
 			//3. statement 객체 생성
 			stmt = conn.createStatement();
 			
 			//4. SQL문 실행
-			String sql = "select no, name from department";
-			rs = stmt.executeQuery(sql);
-			
-			//5. 결과 가져오기
-			while( rs.next() ) {
-				Long no = rs.getLong(1);
-				String name = rs.getString(2);
-				System.out.println(no + ":" + name);
-			}
+			String sql = 
+				"delete from department where no=" + no;
+			int count = stmt.executeUpdate(sql);
+			result = count == 1;
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
@@ -39,9 +41,6 @@ public class SelectTest {
 			System.out.println("error" + e);
 		} finally {
 			try {
-				if( rs != null ) {
-					rs.close();
-				}
 				if( stmt != null ) {
 					stmt.close();
 				}
@@ -49,11 +48,10 @@ public class SelectTest {
 					conn.close();
 				}
  			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		
+		return result;
 	}
-
 }
